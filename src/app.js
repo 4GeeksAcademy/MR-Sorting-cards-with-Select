@@ -2,8 +2,18 @@ import { bottom } from "@popperjs/core";
 import "./style.css";
 
 ///--- GENERACION DE CARTA ALEATORIA---///
-window.onload = () => {
-  const cards = document.querySelectorAll(".card");
+
+const cards = document.querySelectorAll(".card");
+const form = document.querySelector("form");
+
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  const x = parseInt(document.getElementById("amount").value, 10);
+
+  if (isNaN(x) || x < 1 || x > 10) {
+    alert("Please insert a number bewteen 1 and 10");
+    return;
+  }
 
   cards.forEach(card => {
     let topcorner = card.querySelector(".top-corner");
@@ -12,18 +22,14 @@ window.onload = () => {
 
     let selectedpinta = RandomPintaGenerator();
 
-    document.querySelector(".top-corner").classList.remove(selectedpinta);
+    topcorner.classList.remove(topcorner.classList.item(1));
     topcorner.classList.add(selectedpinta);
-    document.querySelector(".bottom-corner").classList.remove(selectedpinta);
-    bottomcorner.classList.add(selectedpinta);
-    document.querySelector(".card-number");
-    cardnumber.innerHTML = RandomNumberGenerator();
-
-    topcorner.classList.add(selectedpinta);
+    bottomcorner.classList.remove(bottomcorner.classList.item(1));
     bottomcorner.classList.add(selectedpinta);
     cardnumber.innerHTML = RandomNumberGenerator();
   });
-};
+});
+
 let RandomNumberGenerator = () => {
   const possiblenumberpicks = [
     "A",
@@ -49,6 +55,7 @@ let RandomPintaGenerator = () => {
   const pintatopick = Math.floor(Math.random() * pinta.length);
   return pinta[pintatopick];
 };
+
 // function GenerateRandomCard(input) {
 //   return (
 //     <div className="card">
