@@ -1,6 +1,7 @@
 import { bottom } from "@popperjs/core";
 import "./style.css";
 window.onload = () => {
+  ///--- GENERACION DE CARTA ALEATORIA---///
   let topcorner = document.querySelector(".top-corner");
   let bottomcorner = document.querySelector(".bottom-corner");
   let cardnumber = document.querySelector(".card-number");
@@ -43,12 +44,12 @@ let RandomPintaGenerator = () => {
   const pintatopick = Math.floor(Math.random() * pinta.length);
   return pinta[pintatopick];
 };
-// function GenerateRandomCard(input) {
-//   return (
-//     <div className="card">
-//       <span className="top-corner"></span>
-//       <span className="card-number"></span>
-//       <span className="bottom-corner"></span>
-//     </div>
-//   );
-// }
+function GenerateRandomCard(input) {
+  return (
+    <div className="card">
+      <span className="top-corner"></span>
+      <span className="card-number"></span>
+      <span className="bottom-corner"></span>
+    </div>
+  );
+}
