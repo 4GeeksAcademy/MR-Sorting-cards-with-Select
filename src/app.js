@@ -1,23 +1,28 @@
 import { bottom } from "@popperjs/core";
 import "./style.css";
+
+///--- GENERACION DE CARTA ALEATORIA---///
 window.onload = () => {
-  ///--- GENERACION DE CARTA ALEATORIA---///
-  let topcorner = document.querySelector(".top-corner");
-  let bottomcorner = document.querySelector(".bottom-corner");
-  let cardnumber = document.querySelector(".card-number");
+  const cards = document.querySelectorAll(".card");
 
-  document.querySelector(".top-corner").classList.remove(selectedpinta);
-  topcorner.classList.add(selectedpinta);
-  document.querySelector(".bottom-corner").classList.remove(selectedpinta);
-  bottomcorner.classList.add(selectedpinta);
-  document.querySelector(".card-number");
-  cardnumber.innerHTML = RandomNumberGenerator();
+  cards.forEach(card => {
+    let topcorner = card.querySelector(".top-corner");
+    let bottomcorner = card.querySelector(".bottom-corner");
+    let cardnumber = card.querySelector(".card-number");
 
-  let selectedpinta = RandomPintaGenerator();
+    let selectedpinta = RandomPintaGenerator();
 
-  topcorner.classList.add(selectedpinta);
-  bottomcorner.classList.add(selectedpinta);
-  cardnumber.innerHTML = RandomNumberGenerator();
+    document.querySelector(".top-corner").classList.remove(selectedpinta);
+    topcorner.classList.add(selectedpinta);
+    document.querySelector(".bottom-corner").classList.remove(selectedpinta);
+    bottomcorner.classList.add(selectedpinta);
+    document.querySelector(".card-number");
+    cardnumber.innerHTML = RandomNumberGenerator();
+
+    topcorner.classList.add(selectedpinta);
+    bottomcorner.classList.add(selectedpinta);
+    cardnumber.innerHTML = RandomNumberGenerator();
+  });
 };
 let RandomNumberGenerator = () => {
   const possiblenumberpicks = [
@@ -44,12 +49,12 @@ let RandomPintaGenerator = () => {
   const pintatopick = Math.floor(Math.random() * pinta.length);
   return pinta[pintatopick];
 };
-function GenerateRandomCard(input) {
-  return (
-    <div className="card">
-      <span className="top-corner"></span>
-      <span className="card-number"></span>
-      <span className="bottom-corner"></span>
-    </div>
-  );
-}
+// function GenerateRandomCard(input) {
+//   return (
+//     <div className="card">
+//       <span className="top-corner"></span>
+//       <span className="card-number"></span>
+//       <span className="bottom-corner"></span>
+//     </div>
+//   );
+// }
