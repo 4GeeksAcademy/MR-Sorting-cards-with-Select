@@ -1,21 +1,7 @@
-import { bottom } from "@popperjs/core";
-import "./style.css";
-
-///--- GENERACION DE CARTA ALEATORIA---///
-
 const cards = document.querySelectorAll(".card");
-const form = document.querySelector("form");
+const cardAmount = document.querySelector("form");
 
-form.addEventListener("submit", event => {
-  event.preventDefault();
-  const x = parseInt(document.getElementById("amount").value, 10);
-
-  if (isNaN(x) || x < 1 || x > 10) {
-    alert("Please insert a number bewteen 1 and 10");
-    return;
-  }
-
-  cards.forEach(card => {
+cards.forEach(card => {
     let topcorner = card.querySelector(".top-corner");
     let bottomcorner = card.querySelector(".bottom-corner");
     let cardnumber = card.querySelector(".card-number");
@@ -28,7 +14,6 @@ form.addEventListener("submit", event => {
     bottomcorner.classList.add(selectedpinta);
     cardnumber.innerHTML = RandomNumberGenerator();
   });
-});
 
 let RandomNumberGenerator = () => {
   const possiblenumberpicks = [
@@ -56,12 +41,76 @@ let RandomPintaGenerator = () => {
   return pinta[pintatopick];
 };
 
-// function GenerateRandomCard(input) {
-//   return (
-//     <div className="card">
-//       <span className="top-corner"></span>
-//       <span className="card-number"></span>
-//       <span className="bottom-corner"></span>
-//     </div>
-//   );
-// }
+
+function createCard() {
+  const card = document.createElement("div");
+  card.className = "card";
+  const topCorner = document.createElement("span");
+  topCorner.className = "top-corner";
+  const bottomCorner = document.createElement("span");
+  bottomCorner.className = "bottom-corner";
+  const cardNumber = document.createElement("span");
+  cardNumber.className = "card-number";
+
+  let cardValue = RandomNumberGenerator();
+  let selectedPinta = RandomPintaGenerator();
+
+  topCorner.classList.add(selectedPinta);
+  bottomCorner.classList.add(selectedPinta);
+  cardNumber.innerHTML = cardValue;
+
+  card.dataset.value = getCardValue(cardValue);
+
+  card.appendChild(topCorner);
+  card.appendChild(cardNumber);
+  card.appendChild(bottomCorner);
+
+  return card;
+}
+
+
+
+const form = document.querySelector("form");
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  const x = parseInt(document.getElementById("amount").value, 10); 
+
+  if (isNaN(x) || x < 1 || x > 10) {
+    alert("Please insert a number between 1 and 10");
+    return;
+  }
+
+  const cardContainer = document.querySelector(".container-random-cards");
+  cardContainer.innerHTML = '';
+  for (let i = 0; i < x; i++) {
+    cardContainer.appendChild(createCard());
+  }
+});
+
+function getCardValue(cardValue) {
+  const values = { "A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13 };
+  
+  return values[cardValue];
+}
+function selectionSort() {
+  const cards = document.querySelectorAll(".container-random-cards .card");
+  const cardsArr = Array.from(cards);
+
+  for (let i = 0; i < cardsArr.length; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < cardsArr.length; j++) {
+      if (parseInt(cardsArr[j].dataset.value) < parseInt(cardsArr[minIndex].dataset.value)) {
+        minIndex = j;
+      }
+    }
+    if (minIndex !== i) {
+      [cardsArr[i], cardsArr[minIndex]] = [cardsArr[minIndex], cardsArr[i]];
+    }
+  }
+
+  const cardContainer = document.querySelector(".container-random-cards");
+  cardContainer.innerHTML = '';
+  cardsArr.forEach(card => cardContainer.appendChild(card));
+}
+const sortButton = document.querySelector("#sort"); 
+sortButton.addEventListener("click", selectionSort);
