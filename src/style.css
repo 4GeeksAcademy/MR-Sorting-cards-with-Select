@@ -1,7 +1,7 @@
 body {
   background-color: rgb(77, 189, 77);
 }
-.container-random-cards {
+.container-random-cards, .sorted-cards{
   display: flex;
 }
 

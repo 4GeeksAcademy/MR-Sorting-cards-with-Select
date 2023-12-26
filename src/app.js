@@ -1,6 +1,7 @@
 const cards = document.querySelectorAll(".card");
 const cardAmount = document.querySelector("form");
 
+
 cards.forEach(card => {
     let topcorner = card.querySelector(".top-corner");
     let bottomcorner = card.querySelector(".bottom-corner");
@@ -94,7 +95,7 @@ function getCardValue(cardValue) {
 }
 function selectionSort() {
   const cards = document.querySelectorAll(".container-random-cards .card");
-  const cardsArr = Array.from(cards);
+  const cardsArr = Array.from(cards).map(card => card.cloneNode(true));
 
   for (let i = 0; i < cardsArr.length; i++) {
     let minIndex = i;
@@ -107,10 +108,9 @@ function selectionSort() {
       [cardsArr[i], cardsArr[minIndex]] = [cardsArr[minIndex], cardsArr[i]];
     }
   }
-
-  const cardContainer = document.querySelector(".container-random-cards");
-  cardContainer.innerHTML = '';
-  cardsArr.forEach(card => cardContainer.appendChild(card));
+  const sortedCardContainer = document.querySelector(".sorted-cards");
+  sortedCardContainer.innerHTML = '';
+  cardsArr.forEach(card => sortedCardContainer.appendChild(card));
 }
 const sortButton = document.querySelector("#sort"); 
 sortButton.addEventListener("click", selectionSort);
