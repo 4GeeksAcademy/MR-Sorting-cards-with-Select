@@ -1,20 +1,21 @@
+import "bootstrap";
+import "./style.css";
 const cards = document.querySelectorAll(".card");
 const cardAmount = document.querySelector("form");
 
-
 cards.forEach(card => {
-    let topcorner = card.querySelector(".top-corner");
-    let bottomcorner = card.querySelector(".bottom-corner");
-    let cardnumber = card.querySelector(".card-number");
+  let topcorner = card.querySelector(".top-corner");
+  let bottomcorner = card.querySelector(".bottom-corner");
+  let cardnumber = card.querySelector(".card-number");
 
-    let selectedpinta = RandomPintaGenerator();
+  let selectedpinta = RandomPintaGenerator();
 
-    topcorner.classList.remove(topcorner.classList.item(1));
-    topcorner.classList.add(selectedpinta);
-    bottomcorner.classList.remove(bottomcorner.classList.item(1));
-    bottomcorner.classList.add(selectedpinta);
-    cardnumber.innerHTML = RandomNumberGenerator();
-  });
+  topcorner.classList.remove(topcorner.classList.item(1));
+  topcorner.classList.add(selectedpinta);
+  bottomcorner.classList.remove(bottomcorner.classList.item(1));
+  bottomcorner.classList.add(selectedpinta);
+  cardnumber.innerHTML = RandomNumberGenerator();
+});
 
 let RandomNumberGenerator = () => {
   const possiblenumberpicks = [
@@ -42,7 +43,6 @@ let RandomPintaGenerator = () => {
   return pinta[pintatopick];
 };
 
-
 function createCard() {
   const card = document.createElement("div");
   card.className = "card";
@@ -69,12 +69,10 @@ function createCard() {
   return card;
 }
 
-
-
 const form = document.querySelector("form");
 form.addEventListener("submit", event => {
   event.preventDefault();
-  const x = parseInt(document.getElementById("amount").value, 10); 
+  const x = parseInt(document.getElementById("amount").value, 10);
 
   if (isNaN(x) || x < 1 || x > 10) {
     alert("Please insert a number between 1 and 10");
@@ -82,15 +80,29 @@ form.addEventListener("submit", event => {
   }
 
   const cardContainer = document.querySelector(".container-random-cards");
-  cardContainer.innerHTML = '';
+  cardContainer.innerHTML = "";
   for (let i = 0; i < x; i++) {
     cardContainer.appendChild(createCard());
   }
 });
 
 function getCardValue(cardValue) {
-  const values = { "A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 11, "Q": 12, "K": 13 };
-  
+  const values = {
+    A: 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "7": 7,
+    "8": 8,
+    "9": 9,
+    "10": 10,
+    J: 11,
+    Q: 12,
+    K: 13
+  };
+
   return values[cardValue];
 }
 function selectionSort() {
@@ -100,7 +112,10 @@ function selectionSort() {
   for (let i = 0; i < cardsArr.length; i++) {
     let minIndex = i;
     for (let j = i + 1; j < cardsArr.length; j++) {
-      if (parseInt(cardsArr[j].dataset.value) < parseInt(cardsArr[minIndex].dataset.value)) {
+      if (
+        parseInt(cardsArr[j].dataset.value) <
+        parseInt(cardsArr[minIndex].dataset.value)
+      ) {
         minIndex = j;
       }
     }
@@ -109,8 +124,8 @@ function selectionSort() {
     }
   }
   const sortedCardContainer = document.querySelector(".sorted-cards");
-  sortedCardContainer.innerHTML = '';
+  sortedCardContainer.innerHTML = "";
   cardsArr.forEach(card => sortedCardContainer.appendChild(card));
 }
-const sortButton = document.querySelector("#sort"); 
+const sortButton = document.querySelector("#sort");
 sortButton.addEventListener("click", selectionSort);
