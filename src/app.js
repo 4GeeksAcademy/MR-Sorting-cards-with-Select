@@ -105,27 +105,48 @@ function getCardValue(cardValue) {
 
   return values[cardValue];
 }
+
 function selectionSort() {
-  const cards = document.querySelectorAll(".container-random-cards .card");
-  const cardsArr = Array.from(cards).map(card => card.cloneNode(true));
+  const originalCards = document.querySelectorAll(
+    ".container-random-cards .card"
+  );
+  const cardsArr = Array.from(originalCards).map(card => ({
+    element: card.cloneNode(true),
+    value: parseInt(card.dataset.value)
+  }));
+
+  const sortedCardContainer = document.querySelector(".sorted-cards");
+  sortedCardContainer.innerHTML = "";
+
+  addCardsToContainer(originalCards, sortedCardContainer);
 
   for (let i = 0; i < cardsArr.length; i++) {
     let minIndex = i;
     for (let j = i + 1; j < cardsArr.length; j++) {
-      if (
-        parseInt(cardsArr[j].dataset.value) <
-        parseInt(cardsArr[minIndex].dataset.value)
-      ) {
+      if (cardsArr[j].value < cardsArr[minIndex].value) {
         minIndex = j;
       }
     }
     if (minIndex !== i) {
-      [cardsArr[i], cardsArr[minIndex]] = [cardsArr[minIndex], cardsArr[i]];
+      let temp = cardsArr[i];
+      cardsArr[i] = cardsArr[minIndex];
+      cardsArr[minIndex] = temp;
     }
+
+    addCardsToContainer(
+      cardsArr.map(cardInfo => cardInfo.element),
+      sortedCardContainer
+    );
   }
-  const sortedCardContainer = document.querySelector(".sorted-cards");
-  sortedCardContainer.innerHTML = "";
-  cardsArr.forEach(card => sortedCardContainer.appendChild(card));
 }
+
+function addCardsToContainer(cards, container) {
+  const row = document.createElement("div");
+  row.classList.add("row-cards");
+
+  cards.forEach(card => row.appendChild(card.cloneNode(true)));
+  container.appendChild(row);
+}
+
 const sortButton = document.querySelector("#sort");
 sortButton.addEventListener("click", selectionSort);

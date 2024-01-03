@@ -4,11 +4,11 @@ body {
 .container-random-cards,
 .sorted-cards {
   display: flex;
+  margin-bottom: 10px;
 }
 
 .card {
   display: flex;
-  flex-direction: column;
   margin: 3px;
   min-height: 200px;
   min-width: 140px;
@@ -56,4 +56,9 @@ body {
 .row-cards {
   display: flex;
   flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.sorted-cards {
+  flex-direction: column;
 }
